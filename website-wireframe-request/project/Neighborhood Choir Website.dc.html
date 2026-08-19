@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="stylesheet" href="_ds/neighborhood-choir-design-system-526c8409-1c15-441e-a259-d11835df4950/colors_and_type.css">
+<link rel="stylesheet" href="_ds/neighborhood-choir-design-system-526c8409-1c15-441e-a259-d11835df4950/ui_kits/website/site.css">
+<script src="_ds/neighborhood-choir-design-system-526c8409-1c15-441e-a259-d11835df4950/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div class="{{ bodyClass }}">
+
+<x-import component-from-global-scope="Nav" current="{{ page }}" onNav="{{ onNav }}" hint-size="100%,80px"></x-import>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<section class="hero" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)">
+  <div style="min-width:0">
+    <x-import component-from-global-scope="Overline" hint-size="auto,24px">fall 2026 · we're back</x-import>
+    <h1>the sound of showing up.</h1>
+    <p class="lead">The neighborhood choir is a community choral group in South Minneapolis. No audition, no experience necessary — just show up. We'll save you a chair.</p>
+    <div class="hero-ctas">
+      <x-import component-from-global-scope="Button" variant="primary" onClick="{{ goJoin }}" hint-size="auto,44px">Come sing with us</x-import>
+      
+    </div>
+  </div>
+  <image-slot id="hero-illustration" shape="rounded" radius="14" placeholder="Illustration: neighbors gathered, singing in Linden Hills Park" style="width:100%;height:340px"></image-slot>
+</section>
+
+<section class="section harriet">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <x-import component-from-global-scope="Overline" color="var(--color-porchlight-soft)" hint-size="auto,24px">next up</x-import>
+        <h2>what we're singing this season</h2>
+      </div>
+    </div>
+    <div class="event-list">
+      <x-import component-from-global-scope="EventCard" dark="{{ true }}" date="JAN 21 · WED" title="flagstone senior living" blurb="A show for residents at Flagstone Senior Living, Eden Prairie." where="8350 Commonwealth Dr, Eden Prairie, MN 55344" time="" tag="for residents only" hint-size="100%,220px"></x-import>
+      <x-import component-from-global-scope="EventCard" dark="{{ true }}" date="JAN 28 · WED" title="friends and family concert" blurb="Our winter concert for friends and family." where="Lutheran Church of the Good Shepherd, 4801 France Ave S, Minneapolis, MN 55410" time="7:00pm" tag="Free" hint-size="100%,220px"></x-import>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div style="background:var(--color-paper);border-radius:14px;padding:56px 48px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center;box-shadow:0 2px 8px rgba(42,38,32,.06)">
+    <div>
+      <x-import component-from-global-scope="Overline" hint-size="auto,24px">join us</x-import>
+      <h2 style="margin:0 0 16px">If you've been thinking about it, this is the season.</h2>
+      <p class="lead" style="margin-bottom: 24px; max-width: none">No audition. Thursdays, 6:30pm, Friends Meetinghouse Minneapolis.</p>
+      <x-import component-from-global-scope="Button" variant="primary" onClick="{{ goJoin }}" hint-size="auto,44px">Register here</x-import>
+    </div>
+    <x-import component-from-global-scope="PullQuote" by="Sue, alto, six seasons in" hint-size="100%,140px">There is nothing more powerful than 80 people singing together as one voice.</x-import>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
+<x-import component-from-global-scope="EventsPage" hint-size="100%,900px"></x-import>
+</sc-if>
+
+<sc-if value="{{ isJoin }}" hint-placeholder-val="{{ false }}">
+<x-import component-from-global-scope="JoinPage" hint-size="100%,900px"></x-import>
+</sc-if>
+
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<x-import component-from-global-scope="AboutPage" hint-size="100%,900px"></x-import>
+</sc-if>
+
+<x-import component-from-global-scope="Footer" onNav="{{ onNav }}" hint-size="100%,320px"></x-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'home' };
+  renderVals() {
+    const page = this.state.page;
+    return {
+      page,
+      isHome: page === 'home',
+      isEvents: page === 'events',
+      isJoin: page === 'join',
+      isAbout: page === 'about',
+      bodyClass: 'site',
+      onNav: (id) => this.setState({ page: id }),
+      goJoin: () => this.setState({ page: 'join' }),
+      goEvents: () => this.setState({ page: 'events' }),
+    };
+  }
+}
+</script>
+</body>
+</html>

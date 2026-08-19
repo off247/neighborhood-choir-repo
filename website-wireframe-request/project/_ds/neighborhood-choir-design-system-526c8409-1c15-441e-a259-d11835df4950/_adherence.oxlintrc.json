@@ -1,0 +1,191 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Merriweather|Source Sans 3))/i]",
+        "message": "Font not provided by the design system. Available: Merriweather, Source Sans 3."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--accent",
+      "--accent-2",
+      "--bg",
+      "--bg-elevated",
+      "--color-dusk",
+      "--color-dusk-soft",
+      "--color-harriet",
+      "--color-harriet-deep",
+      "--color-harriet-soft",
+      "--color-hearth",
+      "--color-hearth-deep",
+      "--color-hearth-soft",
+      "--color-ink",
+      "--color-ink-quiet",
+      "--color-ink-soft",
+      "--color-page",
+      "--color-paper",
+      "--color-paper-edge",
+      "--color-porchlight",
+      "--color-porchlight-deep",
+      "--color-porchlight-soft",
+      "--fg",
+      "--fg-muted",
+      "--fg-quiet",
+      "--font-sans",
+      "--font-serif",
+      "--highlight",
+      "--lh-loose",
+      "--lh-normal",
+      "--lh-snug",
+      "--lh-tight",
+      "--max-content",
+      "--max-page",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-sm",
+      "--rule",
+      "--shadow-inset-rule",
+      "--shadow-lg",
+      "--shadow-md",
+      "--shadow-sm",
+      "--size-body",
+      "--size-caption",
+      "--size-display",
+      "--size-h1",
+      "--size-h2",
+      "--size-h3",
+      "--size-h4",
+      "--size-overline",
+      "--size-small",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--tracking-normal",
+      "--tracking-overline",
+      "--tracking-tight",
+      "--tracking-wide"
+    ],
+    "tokenKinds": {
+      "--color-hearth": "color",
+      "--color-hearth-deep": "color",
+      "--color-hearth-soft": "color",
+      "--color-harriet": "color",
+      "--color-harriet-deep": "color",
+      "--color-harriet-soft": "color",
+      "--color-porchlight": "color",
+      "--color-porchlight-deep": "color",
+      "--color-porchlight-soft": "color",
+      "--color-dusk": "color",
+      "--color-dusk-soft": "color",
+      "--color-page": "color",
+      "--color-paper": "color",
+      "--color-paper-edge": "color",
+      "--color-ink": "color",
+      "--color-ink-soft": "color",
+      "--color-ink-quiet": "color",
+      "--bg": "color",
+      "--bg-elevated": "color",
+      "--fg": "color",
+      "--fg-muted": "color",
+      "--fg-quiet": "color",
+      "--rule": "color",
+      "--accent": "color",
+      "--accent-2": "color",
+      "--highlight": "color",
+      "--font-serif": "font",
+      "--font-sans": "font",
+      "--size-display": "spacing",
+      "--size-h1": "spacing",
+      "--size-h2": "spacing",
+      "--size-h3": "spacing",
+      "--size-h4": "spacing",
+      "--size-body": "spacing",
+      "--size-small": "spacing",
+      "--size-caption": "spacing",
+      "--size-overline": "spacing",
+      "--lh-tight": "other",
+      "--lh-snug": "other",
+      "--lh-normal": "other",
+      "--lh-loose": "other",
+      "--tracking-tight": "font",
+      "--tracking-normal": "font",
+      "--tracking-wide": "font",
+      "--tracking-overline": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-pill": "radius",
+      "--shadow-sm": "shadow",
+      "--shadow-md": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-inset-rule": "shadow",
+      "--max-content": "spacing",
+      "--max-page": "spacing"
+    },
+    "fontFamilies": [
+      "Merriweather",
+      "Source Sans 3"
+    ]
+  }
+}
