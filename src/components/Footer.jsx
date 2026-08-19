@@ -1,6 +1,31 @@
+import { useState } from 'react';
 import Button from './Button.jsx';
 
 export default function Footer({ onNav }) {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | sending | done | invalid | error
+
+  const subscribe = async (e) => {
+    e.preventDefault();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus('invalid');
+      return;
+    }
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error('request failed');
+      setStatus('done');
+      setEmail('');
+    } catch {
+      setStatus('error');
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer-inner">
@@ -45,13 +70,41 @@ export default function Footer({ onNav }) {
             Rehearsal reminders and concert dates — join the list even if singing isn&apos;t your
             thing, just to stay in the loop.
           </p>
-          {/* TODO: wire this up to a real mailing-list service (Mailchimp, Buttondown, etc.) */}
-          <form className="footer-signup" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="you@somewhere.com" aria-label="Email address" />
-            <Button variant="accent" onClick={() => {}}>
-              Subscribe
-            </Button>
-          </form>
+          {status === 'done' ? (
+            <p className="blurb" style={{ maxWidth: '28ch' }}>
+              You&apos;re on the list — thanks!
+            </p>
+          ) : (
+            <form className="footer-signup" onSubmit={subscribe}>
+              <input
+                type="email"
+                placeholder="you@somewhere.com"
+                aria-label="Email address"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (status === 'invalid' || status === 'error') setStatus('idle');
+                }}
+              />
+              <Button
+                variant="accent"
+                onClick={subscribe}
+                style={status === 'sending' ? { opacity: 0.6, pointerEvents: 'none' } : undefined}
+              >
+                {status === 'sending' ? 'Subscribing…' : 'Subscribe'}
+              </Button>
+            </form>
+          )}
+          {status === 'invalid' && (
+            <p style={{ fontSize: 13, color: 'var(--color-porchlight)', margin: '8px 0 0' }}>
+              Please enter a valid email address.
+            </p>
+          )}
+          {status === 'error' && (
+            <p style={{ fontSize: 13, color: 'var(--color-porchlight)', margin: '8px 0 0' }}>
+              Something went wrong — mind trying again?
+            </p>
+          )}
         </div>
       </div>
       <div className="footer-bottom">

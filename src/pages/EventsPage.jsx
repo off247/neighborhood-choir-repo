@@ -124,7 +124,7 @@ export default function EventsPage() {
       <div className="event-list">
         {past.map((e) => (
           <div
-            key={e.title}
+            key={e.date}
             style={{
               display: 'grid',
               gridTemplateColumns: '100px 1fr',

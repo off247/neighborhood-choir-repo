@@ -4,6 +4,8 @@ import Button from '../components/Button.jsx';
 
 export default function JoinPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -14,6 +16,28 @@ export default function JoinPage() {
   });
 
   const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+
+  const submit = async () => {
+    setError('');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('request failed');
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong — mind trying again? If it keeps happening, email theneighborhoodchoir@outlook.com directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -145,7 +169,6 @@ export default function JoinPage() {
           update. Promise.
         </p>
 
-        {/* TODO: wire this form up to a real submission endpoint (e.g. Formspree) */}
         <div className="field-row">
           <div className="field">
             <label>First name</label>
@@ -204,9 +227,18 @@ export default function JoinPage() {
           />
         </div>
 
+        {error && (
+          <p style={{ color: 'var(--color-hearth-deep)', fontSize: 14, margin: '0 0 12px' }}>
+            {error}
+          </p>
+        )}
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 8 }}>
-          <Button variant="primary" onClick={() => setSubmitted(true)}>
-            Send it
+          <Button
+            variant="primary"
+            onClick={submitting ? undefined : submit}
+            style={submitting ? { opacity: 0.6, pointerEvents: 'none' } : undefined}
+          >
+            {submitting ? 'Sending…' : 'Send it'}
           </Button>
         </div>
       </div>
