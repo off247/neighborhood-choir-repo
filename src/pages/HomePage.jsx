@@ -74,7 +74,6 @@ export default function HomePage({ onNav }) {
           </div>
           <div className="event-list">
             <EventCard
-              dark
               date="JAN 21 · WED"
               title="flagstone senior living"
               blurb="A show for residents at Flagstone Senior Living, Eden Prairie."
@@ -83,7 +82,6 @@ export default function HomePage({ onNav }) {
               tag="for residents only"
             />
             <EventCard
-              dark
               date="JAN 28 · WED"
               title="friends and family concert"
               blurb="Our winter concert for friends and family."
