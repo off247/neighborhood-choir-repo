@@ -32,37 +32,6 @@ export default function HomePage({ onNav }) {
         />
       </section>
 
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <Overline>about</Overline>
-            <h2>A choir for the block, the bus stop, the bungalow next door.</h2>
-          </div>
-          <Button variant="ghost" onClick={() => onNav('about')}>
-            Read more →
-          </Button>
-        </div>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1.4fr 1fr',
-            gap: 64,
-            alignItems: 'center',
-          }}
-        >
-          <p className="lead" style={{ maxWidth: 'none' }}>
-            We started before the pandemic, went quiet for a while, and have been back for a
-            few good seasons. We&apos;re 50 to 100 voices on any given Tuesday — sopranos,
-            altos, tenors, basses, teenagers, retirees, a couple of dogs that have learned to
-            be patient. Repertoire ranges from choral standards to folk to whatever&apos;s
-            stuck in the director&apos;s head this week.
-          </p>
-          <PullQuote by="Beth, alto, three seasons in">
-            I came once to try it. I&apos;ve been here three years.
-          </PullQuote>
-        </div>
-      </section>
-
       <section className="section harriet">
         <div className="section-inner">
           <div className="section-head">
