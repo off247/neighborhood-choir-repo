@@ -68,40 +68,28 @@ export default function HomePage({ onNav }) {
         <div className="section-inner">
           <div className="section-head">
             <div>
-              <Overline color="var(--color-porchlight-soft)">upcoming</Overline>
-              <h2>What we&apos;re singing this season</h2>
+              <Overline color="var(--color-porchlight-soft)">next up</Overline>
+              <h2>what we&apos;re singing this season</h2>
             </div>
-            <Button variant="accent" onClick={() => onNav('events')}>
-              All events
-            </Button>
           </div>
           <div className="event-list">
             <EventCard
               dark
-              date="OCT 11 · SAT"
-              title="songs from the porch"
-              blurb="An evening of folk, choral standards, and a few surprises in Linden Hills Park."
-              where="Linden Hills Park"
-              time="4:00pm"
+              date="JAN 21 · WED"
+              title="flagstone senior living"
+              blurb="A show for residents at Flagstone Senior Living, Eden Prairie."
+              where="8350 Commonwealth Dr, Eden Prairie, MN 55344"
+              time=""
+              tag="for residents only"
+            />
+            <EventCard
+              dark
+              date="JAN 28 · WED"
+              title="friends and family concert"
+              blurb="Our winter concert for friends and family."
+              where="Lutheran Church of the Good Shepherd, 4801 France Ave S, Minneapolis, MN 55410"
+              time="7:00pm"
               tag="Free"
-            />
-            <EventCard
-              dark
-              date="NOV 22 · SAT"
-              title="fall concert"
-              blurb="Our full fall program in the sanctuary at Lake Harriet UMC. Bring a friend."
-              where="Lake Harriet UMC"
-              time="7:30pm"
-              tag="Free · offering to charity"
-            />
-            <EventCard
-              dark
-              date="DEC 14 · SUN"
-              title="winter sing-along"
-              blurb="A short set, then we open the doors and everyone sings. Cocoa after."
-              where="Linden Hills Library"
-              time="3:00pm"
-              tag="All ages"
             />
           </div>
         </div>
