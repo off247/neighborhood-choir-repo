@@ -1,27 +1,21 @@
-import { google } from 'googleapis';
-
-function getAuth() {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const key = (process.env.GOOGLE_PRIVATE_KEY || '').replace(/\\n/g, '\n');
-  if (!email || !key) {
-    throw new Error('Missing GOOGLE_SERVICE_ACCOUNT_EMAIL or GOOGLE_PRIVATE_KEY');
-  }
-  return new google.auth.JWT(email, undefined, key, [
-    'https://www.googleapis.com/auth/spreadsheets',
-  ]);
-}
-
-// Appends one row to the given sheet tab. `values` is an ordered array of
-// cell values — column order must match the tab's header row.
+// Relays a row to the Google Apps Script Web App bound to the choir's
+// Sheet (see apps-script/Code.gs). Using Apps Script instead of the Sheets
+// API + a service account key sidesteps org policies that block service
+// account key creation — Apps Script runs under the sheet owner's own
+// Google account, no key involved.
 export async function appendRow(sheetName, values) {
-  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-  if (!spreadsheetId) throw new Error('Missing GOOGLE_SHEET_ID');
-  const sheets = google.sheets({ version: 'v4', auth: getAuth() });
-  await sheets.spreadsheets.values.append({
-    spreadsheetId,
-    range: `${sheetName}!A1`,
-    valueInputOption: 'USER_ENTERED',
-    insertDataOption: 'INSERT_ROWS',
-    requestBody: { values: [values] },
+  const url = process.env.APPS_SCRIPT_URL;
+  const secret = process.env.APPS_SCRIPT_SECRET;
+  if (!url) throw new Error('Missing APPS_SCRIPT_URL');
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ secret, sheet: sheetName, values }),
+    redirect: 'follow',
   });
+  if (!res.ok) throw new Error(`Apps Script request failed: ${res.status}`);
+
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || 'Apps Script reported failure');
 }

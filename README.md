@@ -34,8 +34,8 @@ going to actually work.
 1. **Import the repo into Vercel.** At [vercel.com](https://vercel.com), "Add New… → Project",
    pick this GitHub repo. Vercel auto-detects Vite; the default build settings work as-is. Deploy.
 2. **Add the environment variables** (Project → Settings → Environment Variables) from the Google
-   Sheets setup below: `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GOOGLE_SHEET_ID`.
-   Redeploy after adding them (env vars only apply to new deploys).
+   Sheets setup below: `APPS_SCRIPT_URL`, `APPS_SCRIPT_SECRET`. Redeploy after adding them (env
+   vars only apply to new deploys).
 3. **Point the domain at it.** Project → Settings → Domains → add `theneighborhoodchoir.com` and
    `www.theneighborhoodchoir.com`. Vercel shows the exact DNS records to add (usually an `A`
    record for the apex and a `CNAME` for `www`) — add those with wherever the domain is
@@ -46,30 +46,35 @@ After this, every push to `main` auto-deploys — no GitHub Actions needed (the 
 
 ## Google Sheets setup (one-time)
 
-The functions authenticate as a Google service account, not as you — so submissions land in a
-sheet you own without anyone needing to log in.
+The functions relay each submission to a small script attached directly to the Sheet (Google
+Apps Script), rather than authenticating as a service account. This runs under your own Google
+account's permissions — no API key of any kind, so it works even on Google Workspace accounts
+that block service-account key creation.
 
-1. **Create a Google Cloud project** (or reuse one) at
-   [console.cloud.google.com](https://console.cloud.google.com).
-2. **Enable the Google Sheets API**: APIs & Services → Enable APIs and Services → search "Google
-   Sheets API" → Enable.
-3. **Create a service account**: APIs & Services → Credentials → Create Credentials → Service
-   Account. Any name is fine (e.g. `choir-site-forms`). No project role needs to be granted.
-4. **Create a key for it**: open the service account → Keys → Add Key → Create new key → JSON.
-   This downloads a `.json` file — keep it private, it's a credential.
-5. **Create the Google Sheet.** Add two tabs named exactly `Join` and `Newsletter`. Give `Join` a
+1. **Create the Google Sheet.** Add two tabs named exactly `Join` and `Newsletter`. Give `Join` a
    header row: `Timestamp, First name, Last name, Email, Part, Has name tag, Note`. Give
    `Newsletter` a header row: `Timestamp, Email`.
-6. **Share the sheet with the service account.** Click Share on the sheet, paste in the service
-   account's email (the `client_email` field in the downloaded JSON, looks like
-   `choir-site-forms@your-project.iam.gserviceaccount.com`), give it Editor access.
-7. **Set the three environment variables** in Vercel (see step 2 above), reading from that same
-   JSON file:
-   - `GOOGLE_SERVICE_ACCOUNT_EMAIL` — the `client_email` field.
-   - `GOOGLE_PRIVATE_KEY` — the `private_key` field, pasted as-is (Vercel's env var UI handles the
-     embedded newlines fine).
-   - `GOOGLE_SHEET_ID` — from the sheet's URL:
-     `docs.google.com/spreadsheets/d/`**`THIS_PART`**`/edit`.
+2. **Open the script editor.** In the Sheet: Extensions → Apps Script. Delete whatever's in the
+   default `Code.gs` and paste in the contents of this repo's `apps-script/Code.gs`.
+3. **(Recommended) Set a shared secret.** In the Apps Script editor: Project Settings (gear icon)
+   → Script Properties → Add script property. Name it `SECRET`, value any long random string
+   (e.g. generate one with `openssl rand -hex 24`). This stops random people from POSTing to your
+   Web App URL once it's public — the function checks it. Skip this and the check is skipped too.
+4. **Deploy as a Web App.** Deploy → New deployment → gear icon → Web app. Set **Execute as:
+   Me**, **Who has access: Anyone**. Deploy, and authorize it when Google prompts (it's your own
+   script touching your own Sheet — the scary-looking "unverified app" warning is expected for a
+   personal script and fine to click through). Copy the Web App URL it gives you — it ends in
+   `/exec`.
+5. **Set the environment variables** in Vercel (Project → Settings → Environment Variables):
+   - `APPS_SCRIPT_URL` — the `/exec` URL from step 4.
+   - `APPS_SCRIPT_SECRET` — the same string you set as the `SECRET` script property in step 3
+     (omit both if you skipped that step).
+
+Redeploy the Vercel project after adding/changing env vars — they only apply to new deploys.
+
+**If you ever edit `apps-script/Code.gs`:** changes in the script editor don't take effect until
+you make a **new deployment** (Deploy → Manage deployments → edit → New version), which gives you
+a new `/exec` URL to update in Vercel — editing the code alone doesn't update the live one.
 
 ## Known TODOs
 
