@@ -2,7 +2,6 @@ import Overline from '../components/Overline.jsx';
 import Button from '../components/Button.jsx';
 import EventCard from '../components/EventCard.jsx';
 import PullQuote from '../components/PullQuote.jsx';
-import Stat from '../components/Stat.jsx';
 import heroIllustration from '../assets/hero-illustration.webp';
 
 export default function HomePage({ onNav }) {
@@ -111,27 +110,16 @@ export default function HomePage({ onNav }) {
             <h2 style={{ margin: '0 0 16px' }}>
               If you&apos;ve been thinking about it, this is the season.
             </h2>
-            <p className="lead" style={{ marginBottom: 24 }}>
-              Fall sign-ups are open. Tuesdays, 7pm, the church basement on 43rd. Drop in for
-              one rehearsal before you commit. We&apos;ll save you a chair.
+            <p className="lead" style={{ marginBottom: 24, maxWidth: 'none' }}>
+              No audition. Thursdays, 6:30pm, Friends Meetinghouse Minneapolis.
             </p>
-            <div className="hero-ctas">
-              <Button variant="primary" onClick={() => onNav('join')}>
-                Start the conversation
-              </Button>
-              <Button variant="secondary" href="mailto:theneighborhoodchoir@outlook.com">
-                Email the director
-              </Button>
-            </div>
+            <Button variant="primary" onClick={() => onNav('join')}>
+              Register here
+            </Button>
           </div>
-          <div style={{ display: 'grid', gap: 14 }}>
-            <div className="stats" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              <Stat n="50–100" l="voices each season" />
-              <Stat n="2017" l="first rehearsal" />
-              <Stat n="8" l="years on 43rd" />
-              <Stat n="0" l="auditions to inquire" />
-            </div>
-          </div>
+          <PullQuote by="Sue, alto, six seasons in">
+            There is nothing more powerful than 80 people singing together as one voice.
+          </PullQuote>
         </div>
       </section>
     </>
