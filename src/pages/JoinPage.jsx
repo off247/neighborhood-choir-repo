@@ -33,7 +33,7 @@ export default function JoinPage() {
       if (!res.ok) throw new Error('request failed');
       setSubmitted(true);
     } catch {
-      setError("Something went wrong — mind trying again? If it keeps happening, email theneighborhoodchoir@outlook.com directly.");
+      setError("Something went wrong — mind trying again? If it keeps happening, email hello@theneighborhoodchoir.com directly.");
     } finally {
       setSubmitting(false);
     }
