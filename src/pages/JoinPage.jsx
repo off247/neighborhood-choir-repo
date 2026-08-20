@@ -56,8 +56,8 @@ export default function JoinPage() {
           we&apos;ll be in touch, {form.firstName || 'neighbor'}.
         </h1>
         <p className="lead" style={{ margin: '0 auto 32px', maxWidth: '50ch' }}>
-          You&apos;re on our list — we&apos;ll follow up by email with rehearsal details and
-          everything you need to know before your first Thursday.
+          You&apos;re on our list — can&apos;t wait to sing together on Thursday,
+          September 10th.
         </p>
         <Button variant="ghost" onClick={() => setSubmitted(false)}>
           ← Submit another
