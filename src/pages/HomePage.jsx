@@ -19,9 +19,6 @@ export default function HomePage({ onNav }) {
             <Button variant="primary" onClick={() => onNav('join')}>
               Come sing with us
             </Button>
-            <Button variant="ghost" onClick={() => onNav('events')}>
-              See upcoming concerts →
-            </Button>
           </div>
         </div>
         <img
