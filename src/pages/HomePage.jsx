@@ -59,18 +59,7 @@ export default function HomePage({ onNav }) {
       </section>
 
       <section className="section">
-        <div
-          style={{
-            background: 'var(--color-paper)',
-            borderRadius: 14,
-            padding: '56px 48px',
-            display: 'grid',
-            gridTemplateColumns: '1.3fr 1fr',
-            gap: 48,
-            alignItems: 'center',
-            boxShadow: '0 2px 8px rgba(42,38,32,.06)',
-          }}
-        >
+        <div className="join-card">
           <div>
             <Overline>join us</Overline>
             <h2 style={{ margin: '0 0 16px' }}>

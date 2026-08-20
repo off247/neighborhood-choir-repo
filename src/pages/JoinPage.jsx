@@ -94,14 +94,7 @@ export default function JoinPage() {
         needed — just a willingness to sing. Everyone is welcome!
       </p>
 
-      <div
-        style={{
-          marginBottom: 48,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '48px 24px',
-        }}
-      >
+      <div className="info-grid" style={{ marginBottom: 48 }}>
         <div>
           <h4 style={{ fontFamily: 'var(--font-serif)', margin: '0 0 6px' }}>
             Thursdays, 6:30–8:30pm

@@ -94,10 +94,7 @@ export default function EventsPage() {
         Concert dates, social activities, and the other dates worth marking down — for anyone
         singing with us and anyone coming to listen.
       </p>
-      <div
-        className="event-list"
-        style={{ gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: 80 }}
-      >
+      <div className="event-list" style={{ marginBottom: 80 }}>
         {upcoming.map((e) => (
           <EventCard key={e.title} {...e} />
         ))}
