@@ -10,7 +10,7 @@ export default function JoinPage() {
     firstName: '',
     lastName: '',
     email: '',
-    part: 'Not sure yet — help me figure it out',
+    part: '',
     hasNameTag: 'No',
     note: '',
   });
@@ -19,8 +19,17 @@ export default function JoinPage() {
 
   const submit = async () => {
     setError('');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError('Please enter a valid email address.');
+    const missing = [];
+    if (!form.firstName.trim()) missing.push('first name');
+    if (!form.lastName.trim()) missing.push('last name');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) missing.push('a valid email');
+    if (!form.part) missing.push('what you usually sing');
+    if (missing.length) {
+      const list =
+        missing.length === 1
+          ? missing[0]
+          : `${missing.slice(0, -1).join(', ')} and ${missing[missing.length - 1]}`;
+      setError(`Please fill in ${list} before sending.`);
       return;
     }
     setSubmitting(true);
@@ -146,35 +155,41 @@ export default function JoinPage() {
 
         <div className="field-row">
           <div className="field">
-            <label>First name</label>
+            <label>First name *</label>
             <input
               value={form.firstName}
               onChange={(e) => update('firstName', e.target.value)}
               placeholder="Maya"
+              required
             />
           </div>
           <div className="field">
-            <label>Last name</label>
+            <label>Last name *</label>
             <input
               value={form.lastName}
               onChange={(e) => update('lastName', e.target.value)}
               placeholder="Hartwell"
+              required
             />
           </div>
           <div className="field">
-            <label>Email</label>
+            <label>Email *</label>
             <input
               type="email"
               value={form.email}
               onChange={(e) => update('email', e.target.value)}
               placeholder="you@somewhere.com"
+              required
             />
           </div>
         </div>
 
         <div className="field">
-          <label>What do you usually sing?</label>
-          <select value={form.part} onChange={(e) => update('part', e.target.value)}>
+          <label>What do you usually sing? *</label>
+          <select value={form.part} onChange={(e) => update('part', e.target.value)} required>
+            <option value="" disabled>
+              Select one…
+            </option>
             <option>Soprano</option>
             <option>Alto</option>
             <option>Tenor</option>
