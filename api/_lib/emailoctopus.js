@@ -12,14 +12,12 @@ export async function addToEmailOctopus(email) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     },
-    body: JSON.stringify({ email_address: email, status: 'SUBSCRIBED' }),
+    body: JSON.stringify({ email_address: email, status: 'subscribed' }),
   });
 
-  if (res.ok) return;
+  // 409 = "List contact already exists" — not a real failure.
+  if (res.ok || res.status === 409) return;
 
-  const body = await res.json().catch(() => ({}));
-  // Already on the list — not a real failure.
-  if (body?.error?.code && /EXISTS/i.test(body.error.code)) return;
-
-  throw new Error(`EmailOctopus request failed: ${res.status} ${JSON.stringify(body)}`);
+  const body = await res.text().catch(() => '');
+  throw new Error(`EmailOctopus request failed: ${res.status} ${body}`);
 }
