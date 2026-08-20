@@ -59,9 +59,6 @@ export default function JoinPage() {
           You&apos;re on our list — can&apos;t wait to sing together on Thursday,
           September 10th.
         </p>
-        <Button variant="ghost" onClick={() => setSubmitted(false)}>
-          ← Submit another
-        </Button>
       </div>
     );
   }
