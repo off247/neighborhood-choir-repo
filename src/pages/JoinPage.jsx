@@ -42,22 +42,6 @@ export default function JoinPage() {
   if (submitted) {
     return (
       <div className="page-narrow" style={{ textAlign: 'center' }}>
-        <div
-          style={{
-            display: 'inline-block',
-            padding: '8px 18px',
-            background: 'var(--color-harriet-soft)',
-            color: 'var(--color-harriet-deep)',
-            borderRadius: 999,
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: '.14em',
-            textTransform: 'uppercase',
-            marginBottom: 24,
-          }}
-        >
-          got it
-        </div>
         <h1
           style={{
             fontFamily: 'var(--font-serif)',
@@ -72,8 +56,8 @@ export default function JoinPage() {
           we&apos;ll be in touch, {form.firstName || 'neighbor'}.
         </h1>
         <p className="lead" style={{ margin: '0 auto 32px', maxWidth: '50ch' }}>
-          Expect a friendly email from our director within a few days with rehearsal details
-          and what to bring (mostly: a water bottle and an open mind).
+          You&apos;re on our list — we&apos;ll follow up by email with rehearsal details and
+          everything you need to know before your first Thursday.
         </p>
         <Button variant="ghost" onClick={() => setSubmitted(false)}>
           ← Submit another
