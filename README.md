@@ -3,7 +3,7 @@
 A React + Vite site for The Neighborhood Choir (Home, Calendar, Join, About), built from the
 `website-wireframe-request` design handoff. The Join form and newsletter signup submit to two
 Vercel serverless functions (`api/join.js`, `api/subscribe.js`) that append each submission as a
-row in a Google Sheet.
+row in a Google Sheet; the newsletter signup can also optionally sync into an EmailOctopus list.
 
 ## Develop
 
@@ -75,6 +75,23 @@ Redeploy the Vercel project after adding/changing env vars — they only apply t
 **If you ever edit `apps-script/Code.gs`:** changes in the script editor don't take effect until
 you make a **new deployment** (Deploy → Manage deployments → edit → New version), which gives you
 a new `/exec` URL to update in Vercel — editing the code alone doesn't update the live one.
+
+## EmailOctopus sync (optional)
+
+The footer newsletter signup always writes to the `Newsletter` sheet tab. It can *also* add the
+subscriber straight into an EmailOctopus list, so you don't have to manually import the sheet.
+This is best-effort — if EmailOctopus is unreachable or misconfigured, the signup still succeeds
+via the Sheet either way, it just won't show up in EmailOctopus until fixed.
+
+1. **Get an API key.** EmailOctopus dashboard → Account → Integrations & API → API Keys → create
+   one.
+2. **Get your list ID.** Open the list you want subscribers added to; the ID is in that list's
+   URL/settings in the EmailOctopus dashboard.
+3. **Set the environment variables** in Vercel: `EMAILOCTOPUS_API_KEY`, `EMAILOCTOPUS_LIST_ID`.
+   Redeploy after adding them.
+
+Leaving these two unset disables the EmailOctopus sync entirely (no error, it's just skipped) —
+signups keep landing in the Sheet as normal.
 
 ## Known TODOs
 

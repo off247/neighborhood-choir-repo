@@ -1,4 +1,5 @@
 import { appendRow } from './_lib/sheets.js';
+import { addToEmailOctopus } from './_lib/emailoctopus.js';
 
 const isEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
@@ -16,9 +17,18 @@ export default async function handler(req, res) {
 
   try {
     await appendRow('Newsletter', [new Date().toISOString(), email]);
-    res.status(200).json({ ok: true });
   } catch (err) {
     console.error('newsletter submission failed:', err);
     res.status(500).json({ error: 'Could not save submission' });
+    return;
   }
+
+  try {
+    await addToEmailOctopus(email);
+  } catch (err) {
+    // Best-effort: the signup already succeeded via the Sheet above.
+    console.error('EmailOctopus sync failed:', err);
+  }
+
+  res.status(200).json({ ok: true });
 }
