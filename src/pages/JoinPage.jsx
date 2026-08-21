@@ -118,7 +118,7 @@ export default function JoinPage() {
             Cost and commitment
           </h4>
           <p style={{ fontSize: 14, color: 'var(--color-ink-soft)', margin: 0 }}>
-            $125 for the spring session, covering rent, music, and directing. Bring cash or a
+            $130 for the spring session, covering rent, music, and directing. Bring cash or a
             check (&ldquo;The Neighborhood Choir&rdquo;) to your first rehearsal — no credit
             cards. We also accept Venmo at @TheNeighborhoodChoir. Scholarships available: email
             hello@theneighborhoodchoir.com.
