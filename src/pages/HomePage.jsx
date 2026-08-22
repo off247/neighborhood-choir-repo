@@ -44,7 +44,7 @@ export default function HomePage({ onNav }) {
               blurb="A show for residents at Flagstone Senior Living, Eden Prairie."
               where="8350 Commonwealth Dr, Eden Prairie, MN 55344"
               time=""
-              tag="for residents only"
+              tag="For residents only"
             />
             <EventCard
               date="JAN 28 · WED"
