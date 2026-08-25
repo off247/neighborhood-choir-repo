@@ -22,7 +22,7 @@ const upcoming = [
       'https://docs.google.com/spreadsheets/d/1xPk3Co0B1dnA1ipa6FEm42dKSujS0oMXqY-_XjUJ99M/edit?usp=sharing',
   },
   {
-    date: 'JAN 21 · WED',
+    date: 'JAN 21 · THU',
     title: 'flagstone senior living',
     blurb: 'A show for residents at Flagstone Senior Living, Eden Prairie.',
     where: '8350 Commonwealth Dr, Eden Prairie, MN 55344',
@@ -30,7 +30,7 @@ const upcoming = [
     tag: 'For residents only',
   },
   {
-    date: 'JAN 28 · WED',
+    date: 'JAN 28 · THU',
     title: 'friends and family concert',
     blurb: 'Our winter concert for friends and family.',
     where: 'Lutheran Church of the Good Shepherd, 4801 France Ave S, Minneapolis, MN 55410',
