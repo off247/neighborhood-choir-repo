@@ -96,8 +96,19 @@ export default function AboutPage() {
             >
               Accompanist
             </p>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--color-ink-quiet)', fontStyle: 'italic', margin: 0 }}>
-              Bio coming soon.
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--color-ink-soft)', margin: '0 0 16px', maxWidth: '60ch' }}>
+              Seth Engelby is a pianist, educator, and collaborative musician active throughout
+              the Twin Cities. He performed for several years with the Semada Trio, an oboe,
+              bassoon, and piano ensemble, and regularly collaborates with student musicians at
+              area high schools and colleges. Seth has also served as a church musician and
+              keyboardist at a South Minneapolis church for more than twenty years and has been
+              a pianist understudy at the Brave New Workshop.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--color-ink-soft)', margin: 0, maxWidth: '60ch' }}>
+              A graduate of Indiana University with a degree in Instrumental Music Education
+              with an emphasis in piano, Seth maintains a private piano studio in Southwest
+              Minneapolis. Outside of teaching and performing, he enjoys hiking, tennis, and
+              playing with his two cats.
             </p>
           </div>
         </div>
